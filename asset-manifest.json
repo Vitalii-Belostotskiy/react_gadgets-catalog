@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "./static/css/main.22bee285.css",
+    "main.js": "./static/js/main.af4793f3.js",
+    "static/media/Tablets.svg": "./static/media/Tablets.cb4d6552f79cdb990bb336eac1f4a947.svg",
+    "static/media/Banner_desctop.svg": "./static/media/Banner_desctop.a233ec6e5e243d728b58.svg",
+    "static/media/banner-tablets.png": "./static/media/banner-tablets.3ab0c9b71cae9e04b094.png",
+    "static/media/Accessories.svg": "./static/media/Accessories.cecbb9b932f6e0cd72f6aa2e7882a3aa.svg",
+    "static/media/Phones.svg": "./static/media/Phones.65fe93d1f104791efbd4f8c84047eea6.svg",
+    "static/media/category-accessories.png": "./static/media/category-accessories.e47d6d6df68a6548e82b.png",
+    "static/media/Banner_mobile.png": "./static/media/Banner_mobile.0582a9dfa7e5ea770487.png",
+    "static/media/apple-watch.webp": "./static/media/apple-watch.4b422d2a9195a12d7fe2.webp",
+    "static/media/Favourites-empty.svg": "./static/media/Favourites-empty.28f6088c83570782c6af.svg",
+    "static/media/Home.svg": "./static/media/Home.61c669dec91922931a67.svg",
+    "static/media/Favourites-red.svg": "./static/media/Favourites-red.d554a185325e4fb06092.svg",
+    "index.html": "./index.html",
+    "static/media/Chevron-left.svg": "./static/media/Chevron-left.173b6b33bb1fa3a0dcbb.svg",
+    "static/media/Chevron-right.svg": "./static/media/Chevron-right.032143ec3a469792459d.svg",
+    "static/media/arrowUp.svg": "./static/media/arrowUp.cad6fe756ac52c2abada.svg",
+    "static/media/arrow-down.svg": "./static/media/arrow-down.0a75b98d9165f32dc531.svg",
+    "static/media/arrow-up.svg": "./static/media/arrow-up.d7ccf9e94d5187a54e6e.svg",
+    "main.22bee285.css.map": "./static/css/main.22bee285.css.map",
+    "main.af4793f3.js.map": "./static/js/main.af4793f3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22bee285.css",
+    "static/js/main.af4793f3.js"
+  ]
+}
