@@ -18,7 +18,10 @@ export const Footer: React.FC = () => {
       <nav className={styles.footer__navigation}>
         <ul className={styles.footer__list}>
           <li className={styles.footer__item}>
-            <a href="#" className={styles.footer__link}>
+            <a
+              href="https://github.com/Vitalii-Belostotskiy"
+              className={styles.footer__link}
+            >
               Github
             </a>
           </li>

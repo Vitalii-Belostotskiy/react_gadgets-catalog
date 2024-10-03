@@ -4,7 +4,6 @@ import { Products } from '../../types/Products';
 import styles from './Favourites.module.scss';
 import { Link } from 'react-router-dom';
 import { ModelItem } from '../HomePage/Models/ModelsItem';
-import { Footer } from '../Footer';
 
 interface Props {
   models: Products[];
@@ -64,7 +63,6 @@ export const Favourites: React.FC<Props> = ({ models }) => {
           </div>
         )}
       </section>
-      <Footer />
     </div>
   );
 };

@@ -12,7 +12,6 @@ import { getProduct } from '../../api';
 import { Loader } from '../Loader';
 import { HeaderPageListsSection } from '../../types/PageForShow';
 import { Paginations } from './Pagination/Pagination';
-import { Footer } from '../Footer';
 
 interface Props {
   product: Products[];
@@ -229,7 +228,6 @@ export const ProductsPage: React.FC<Props> = ({ product }) => {
           />
         )}
       </div>
-      <Footer />
     </main>
   );
 };

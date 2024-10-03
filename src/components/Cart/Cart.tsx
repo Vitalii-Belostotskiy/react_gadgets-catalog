@@ -4,7 +4,6 @@ import styles from './Cart.module.scss';
 import { Products } from '../../types/Products';
 import { useAppContext } from '../../AppContext';
 import { ModalWindow } from '../ModalWindow';
-import { Footer } from '../Footer';
 
 interface Props {
   models: Products[];
@@ -105,7 +104,10 @@ export const Cart: React.FC<Props> = ({ models }) => {
                           />
                         </button>
                       </div>
-                      <h3 className={styles.cart__price}>{`$${item.price}`}</h3>
+                      <h3
+                        className={styles.cart__price}
+                        key={item.price}
+                      >{`$${item.price}`}</h3>
                     </div>
                   </div>
                 ))}
@@ -137,7 +139,6 @@ export const Cart: React.FC<Props> = ({ models }) => {
         )}
       </section>
       {visibleModal && <ModalWindow setVisibleModal={setVisibleModal} />}
-      <Footer />
     </div>
   );
 };

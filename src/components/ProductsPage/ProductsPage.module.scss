@@ -3,8 +3,8 @@
 
 .page {
   margin-top: 24px;
-
-
+  min-height: 100vh;
+  
   &__container,
   &__filter-by,
   &__content {
@@ -16,7 +16,6 @@
     gap: 32px;
     max-width: 1160px;
     margin: 0 auto;
-    min-height: 100vh;
 
     @include content-paddin-inline;
   }

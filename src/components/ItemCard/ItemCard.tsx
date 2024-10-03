@@ -13,7 +13,6 @@ import {
   getDetailedTablets,
 } from '../../api';
 import { Loader } from '../Loader';
-import { Footer } from '../Footer';
 import { Carousel } from '../HomePage/Models/Carousel';
 
 interface Props {
@@ -411,7 +410,6 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
       ) : (
         <div>Loading...</div>
       )}
-      <Footer />
     </div>
   );
 };

@@ -7,7 +7,6 @@ import PhoneImage from './Category/img/Phones.svg';
 import TabletImage from './Category/img/Tablets.svg';
 import AccessoriesImage from './Category/img/Accessories.svg';
 import { Main } from './Main';
-import { Footer } from '../Footer';
 import { Models } from './Models';
 import { Category } from './Category';
 
@@ -66,7 +65,6 @@ export const HomePage: React.FC<Props> = ({ phones, tablets, accessories }) => {
         <Category categories={categoryData} setCurrentPage={setCurrentPage} />
         <Models phones={hotPrices} swiperIndex={3} modelsTitle="Hot prices" />
       </div>
-      <Footer />
     </main>
   );
 };
