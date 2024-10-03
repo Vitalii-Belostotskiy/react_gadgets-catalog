@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.22bee285.css",
-    "main.js": "./static/js/main.af4793f3.js",
+    "main.css": "./static/css/main.cc0ecabe.css",
+    "main.js": "./static/js/main.7c5a92c3.js",
     "static/media/Tablets.svg": "./static/media/Tablets.cb4d6552f79cdb990bb336eac1f4a947.svg",
     "static/media/Banner_desctop.svg": "./static/media/Banner_desctop.a233ec6e5e243d728b58.svg",
     "static/media/banner-tablets.png": "./static/media/banner-tablets.3ab0c9b71cae9e04b094.png",
@@ -19,11 +19,11 @@
     "static/media/arrowUp.svg": "./static/media/arrowUp.cad6fe756ac52c2abada.svg",
     "static/media/arrow-down.svg": "./static/media/arrow-down.0a75b98d9165f32dc531.svg",
     "static/media/arrow-up.svg": "./static/media/arrow-up.d7ccf9e94d5187a54e6e.svg",
-    "main.22bee285.css.map": "./static/css/main.22bee285.css.map",
-    "main.af4793f3.js.map": "./static/js/main.af4793f3.js.map"
+    "main.cc0ecabe.css.map": "./static/css/main.cc0ecabe.css.map",
+    "main.7c5a92c3.js.map": "./static/js/main.7c5a92c3.js.map"
   },
   "entrypoints": [
-    "static/css/main.22bee285.css",
-    "static/js/main.af4793f3.js"
+    "static/css/main.cc0ecabe.css",
+    "static/js/main.7c5a92c3.js"
   ]
 }
