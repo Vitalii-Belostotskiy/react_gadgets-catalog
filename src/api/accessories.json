@@ -77,8 +77,8 @@
         ]
       }
     ],
-    "screen": "1.3' OLED",
-    "resolution": "272x340",
+    "screen": "1.5' OLED",
+    "resolution": "312x390",
     "processor": "Apple S3",
     "ram": "768MB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -161,8 +161,8 @@
         ]
       }
     ],
-    "screen": "1.3' OLED",
-    "resolution": "272x340",
+    "screen": "1.5' OLED",
+    "resolution": "312x390",
     "processor": "Apple S3",
     "ram": "768MB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -245,8 +245,8 @@
         ]
       }
     ],
-    "screen": "1.3' OLED",
-    "resolution": "272x340",
+    "screen": "1.5' OLED",
+    "resolution": "312x390",
     "processor": "Apple S3",
     "ram": "768MB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -329,8 +329,8 @@
         ]
       }
     ],
-    "screen": "1.57' OLED",
-    "resolution": "324x394",
+    "screen": "1.78' OLED",
+    "resolution": "368x448",
     "processor": "Apple S6",
     "ram": "1GB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -413,8 +413,8 @@
         ]
       }
     ],
-    "screen": "1.57' OLED",
-    "resolution": "324x394",
+    "screen": "1.78' OLED",
+    "resolution": "368x448",
     "processor": "Apple S6",
     "ram": "1GB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -497,8 +497,8 @@
         ]
       }
     ],
-    "screen": "1.57' OLED",
-    "resolution": "324x394",
+    "screen": "1.78' OLED",
+    "resolution": "368x448",
     "processor": "Apple S6",
     "ram": "1GB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -581,8 +581,8 @@
         ]
       }
     ],
-    "screen": "1.57' OLED",
-    "resolution": "324x394",
+    "screen": "1.78' OLED",
+    "resolution": "368x448",
     "processor": "Apple S6",
     "ram": "1GB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]
@@ -665,8 +665,8 @@
         ]
       }
     ],
-    "screen": "1.57' OLED",
-    "resolution": "324x394",
+    "screen": "1.78' OLED",
+    "resolution": "368x448",
     "processor": "Apple S6",
     "ram": "1GB",
     "cell": ["Wi-Fi", "Bluetooth", "LTE"]

@@ -117,20 +117,20 @@ Apple iPhone 13 Mini specs. Year: 2021. Screen: 5.4' Super Retina XDR. Resolutio
 
 Apple iPhone 13 Pro Max options. Storage: 128GB, 256GB, 512GB, 1TB (smallest 128GB, largest 1TB). Colors: Sierra Blue, Graphite, Gold. Price: from $1260 to $1540.
 
-Apple iPhone 13 Pro Max specs. Year: 2021. Screen: 6.7' Super Retina XDR display. RAM: 6GB.
+Apple iPhone 13 Pro Max specs. Year: 2021. Screen: 6.7' Super Retina XDR display. Resolution: 2778x1284. Processor: Apple A15 Bionic. RAM: 6GB. Camera: 12 Mp + 12 Mp + 12 Mp. Zoom: Optical, 3x; Digital, up to 15x. Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G. Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion.
 
-- Apple iPhone 13 Pro Max 128GB, Gold — $1260, was $1286; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-128gb-gold
-- Apple iPhone 13 Pro Max 128GB, Graphite — $1260, was $1286; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-128gb-graphite
-- Apple iPhone 13 Pro Max 128GB, Sierra Blue — $1260, was $1286; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-128gb-sierrablue
-- Apple iPhone 13 Pro Max 256GB, Gold — $1379, was $1399; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-256gb-gold
-- Apple iPhone 13 Pro Max 256GB, Graphite — $1379, was $1399; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-256gb-graphite
-- Apple iPhone 13 Pro Max 256GB, Sierra Blue — $1379, was $1399; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-256gb-sierrablue
-- Apple iPhone 13 Pro Max 512GB, Gold — $1371, was $1426; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-512gb-gold
-- Apple iPhone 13 Pro Max 512GB, Graphite — $1371, was $1426; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-512gb-graphite
-- Apple iPhone 13 Pro Max 512GB, Sierra Blue — $1371, was $1426; Resolution: 2778x1284; Processor: Apple A15 Bionic; Camera: 12 Mp + 12 Mp + 12 Mp; Zoom: Optical, 3x; Digital, up to 15x; Connectivity: GSM, CDMA, HSPA, EVDO, LTE, 5G; Key features: The Ultimate Pro Camera System; Cinematic Mode; A15 Bionic; ProMotion — path: /phones/apple-iphone-13-pro-max-512gb-sierrablue
-- Apple iPhone 13 Pro Max 1TB, Gold — $1540, was $1700; Resolution: 2556x1179; Processor: Apple A16 Bionic; Camera: 48 Mp + 12 Mp + 12MP + 12Mp; Zoom: Digital 5x, Optical 2x; Connectivity: GPRS, EDGE, WCDMA, UMTS, HSPA, LTE, 5G; Key features: And then was a Pro; Camera; Shoot it. Flip it. Zoom it. Crop it. Cut it. Light it. Tweak it. Love it. — path: /phones/apple-iphone-13-pro-max-1tb-gold
-- Apple iPhone 13 Pro Max 1TB, Graphite — $1540, was $1700; Resolution: 2556x1179; Processor: Apple A16 Bionic; Camera: 48 Mp + 12 Mp + 12MP + 12Mp; Zoom: Digital 5x, Optical 2x; Connectivity: GPRS, EDGE, WCDMA, UMTS, HSPA, LTE, 5G; Key features: And then was a Pro; Camera; Shoot it. Flip it. Zoom it. Crop it. Cut it. Light it. Tweak it. Love it. — path: /phones/apple-iphone-13-pro-max-1tb-graphite
-- Apple iPhone 13 Pro Max 1TB, Sierra Blue — $1540, was $1700; Resolution: 2556x1179; Processor: Apple A16 Bionic; Camera: 48 Mp + 12 Mp + 12MP + 12Mp; Zoom: Digital 5x, Optical 2x; Connectivity: GPRS, EDGE, WCDMA, UMTS, HSPA, LTE, 5G; Key features: And then was a Pro; Camera; Shoot it. Flip it. Zoom it. Crop it. Cut it. Light it. Tweak it. Love it. — path: /phones/apple-iphone-13-pro-max-1tb-sierrablue
+- Apple iPhone 13 Pro Max 128GB, Gold — $1260, was $1286 — path: /phones/apple-iphone-13-pro-max-128gb-gold
+- Apple iPhone 13 Pro Max 128GB, Graphite — $1260, was $1286 — path: /phones/apple-iphone-13-pro-max-128gb-graphite
+- Apple iPhone 13 Pro Max 128GB, Sierra Blue — $1260, was $1286 — path: /phones/apple-iphone-13-pro-max-128gb-sierrablue
+- Apple iPhone 13 Pro Max 256GB, Gold — $1379, was $1399 — path: /phones/apple-iphone-13-pro-max-256gb-gold
+- Apple iPhone 13 Pro Max 256GB, Graphite — $1379, was $1399 — path: /phones/apple-iphone-13-pro-max-256gb-graphite
+- Apple iPhone 13 Pro Max 256GB, Sierra Blue — $1379, was $1399 — path: /phones/apple-iphone-13-pro-max-256gb-sierrablue
+- Apple iPhone 13 Pro Max 512GB, Gold — $1371, was $1426 — path: /phones/apple-iphone-13-pro-max-512gb-gold
+- Apple iPhone 13 Pro Max 512GB, Graphite — $1371, was $1426 — path: /phones/apple-iphone-13-pro-max-512gb-graphite
+- Apple iPhone 13 Pro Max 512GB, Sierra Blue — $1371, was $1426 — path: /phones/apple-iphone-13-pro-max-512gb-sierrablue
+- Apple iPhone 13 Pro Max 1TB, Gold — $1540, was $1700 — path: /phones/apple-iphone-13-pro-max-1tb-gold
+- Apple iPhone 13 Pro Max 1TB, Graphite — $1540, was $1700 — path: /phones/apple-iphone-13-pro-max-1tb-graphite
+- Apple iPhone 13 Pro Max 1TB, Sierra Blue — $1540, was $1700 — path: /phones/apple-iphone-13-pro-max-1tb-sierrablue
 
 ### Apple iPhone 14
 
@@ -326,14 +326,14 @@ Apple Watch SE specs. Year: 2020. Processor: Apple S5. RAM: 1GB. Connectivity: W
 
 Apple Watch Series 3 options. Case sizes: 38mm, 42mm (smallest 38mm, largest 42mm). Colors: Space Gray, Gold, Silver. Price: from $169 to $219.
 
-Apple Watch Series 3 specs. Year: 2017. Screen: 1.3' OLED. Resolution: 272x340. Processor: Apple S3. RAM: 768MB. Connectivity: Wi-Fi, Bluetooth, LTE. Key features: Monitor your health; Stay connected on the go; Stream your favorite music.
+Apple Watch Series 3 specs. Year: 2017. Processor: Apple S3. RAM: 768MB. Connectivity: Wi-Fi, Bluetooth, LTE. Key features: Monitor your health; Stay connected on the go; Stream your favorite music.
 
-- Apple Watch Series 3 38mm, Gold — $169, was $199 — path: /accessories/apple-watch-series-3-38mm-gold
-- Apple Watch Series 3 38mm, Silver — $169, was $199 — path: /accessories/apple-watch-series-3-38mm-silver
-- Apple Watch Series 3 38mm, Space Gray — $169, was $199 — path: /accessories/apple-watch-series-3-38mm-space-gray
-- Apple Watch Series 3 42mm, Gold — $219, was $250 — path: /accessories/apple-watch-series-3-42mm-gold
-- Apple Watch Series 3 42mm, Silver — $219, was $250 — path: /accessories/apple-watch-series-3-42mm-silver
-- Apple Watch Series 3 42mm, Space Gray — $219, was $250 — path: /accessories/apple-watch-series-3-42mm-space-gray
+- Apple Watch Series 3 38mm, Gold — $169, was $199; Screen: 1.3' OLED; Resolution: 272x340 — path: /accessories/apple-watch-series-3-38mm-gold
+- Apple Watch Series 3 38mm, Silver — $169, was $199; Screen: 1.3' OLED; Resolution: 272x340 — path: /accessories/apple-watch-series-3-38mm-silver
+- Apple Watch Series 3 38mm, Space Gray — $169, was $199; Screen: 1.3' OLED; Resolution: 272x340 — path: /accessories/apple-watch-series-3-38mm-space-gray
+- Apple Watch Series 3 42mm, Gold — $219, was $250; Screen: 1.5' OLED; Resolution: 312x390 — path: /accessories/apple-watch-series-3-42mm-gold
+- Apple Watch Series 3 42mm, Silver — $219, was $250; Screen: 1.5' OLED; Resolution: 312x390 — path: /accessories/apple-watch-series-3-42mm-silver
+- Apple Watch Series 3 42mm, Space Gray — $219, was $250; Screen: 1.5' OLED; Resolution: 312x390 — path: /accessories/apple-watch-series-3-42mm-space-gray
 
 ### Apple Watch Series 4
 
@@ -365,15 +365,15 @@ Apple Watch Series 5 specs. Year: 2019. Processor: Apple S5. RAM: 1GB. Connectiv
 
 Apple Watch Series 6 options. Case sizes: 40mm, 44mm (smallest 40mm, largest 44mm). Colors: Space Gray, Silver, Gold, Blue, Red. Price: from $329 to $359.
 
-Apple Watch Series 6 specs. Year: 2020. Screen: 1.57' OLED. Resolution: 324x394. Processor: Apple S6. RAM: 1GB. Connectivity: Wi-Fi, Bluetooth, LTE. Key features: Always-On Retina display; Blood oxygen sensor; Track your daily activity.
+Apple Watch Series 6 specs. Year: 2020. Processor: Apple S6. RAM: 1GB. Connectivity: Wi-Fi, Bluetooth, LTE. Key features: Always-On Retina display; Blood oxygen sensor; Track your daily activity.
 
-- Apple Watch Series 6 40mm, Blue — $329, was $399 — path: /accessories/apple-watch-series-6-40mm-blue
-- Apple Watch Series 6 40mm, Gold — $329, was $399 — path: /accessories/apple-watch-series-6-40mm-gold
-- Apple Watch Series 6 40mm, Red — $329, was $399 — path: /accessories/apple-watch-series-6-40mm-red
-- Apple Watch Series 6 40mm, Silver — $329, was $399 — path: /accessories/apple-watch-series-6-40mm-silver
-- Apple Watch Series 6 40mm, Space Gray — $329, was $399 — path: /accessories/apple-watch-series-6-40mm-space-gray
-- Apple Watch Series 6 44mm, Blue — $359, was $429 — path: /accessories/apple-watch-series-6-44mm-blue
-- Apple Watch Series 6 44mm, Gold — $359, was $429 — path: /accessories/apple-watch-series-6-44mm-gold
-- Apple Watch Series 6 44mm, Red — $359, was $429 — path: /accessories/apple-watch-series-6-44mm-red
-- Apple Watch Series 6 44mm, Silver — $359, was $429 — path: /accessories/apple-watch-series-6-44mm-silver
-- Apple Watch Series 6 44mm, Space Gray — $359, was $429 — path: /accessories/apple-watch-series-6-44mm-space-gray
+- Apple Watch Series 6 40mm, Blue — $329, was $399; Screen: 1.57' OLED; Resolution: 324x394 — path: /accessories/apple-watch-series-6-40mm-blue
+- Apple Watch Series 6 40mm, Gold — $329, was $399; Screen: 1.57' OLED; Resolution: 324x394 — path: /accessories/apple-watch-series-6-40mm-gold
+- Apple Watch Series 6 40mm, Red — $329, was $399; Screen: 1.57' OLED; Resolution: 324x394 — path: /accessories/apple-watch-series-6-40mm-red
+- Apple Watch Series 6 40mm, Silver — $329, was $399; Screen: 1.57' OLED; Resolution: 324x394 — path: /accessories/apple-watch-series-6-40mm-silver
+- Apple Watch Series 6 40mm, Space Gray — $329, was $399; Screen: 1.57' OLED; Resolution: 324x394 — path: /accessories/apple-watch-series-6-40mm-space-gray
+- Apple Watch Series 6 44mm, Blue — $359, was $429; Screen: 1.78' OLED; Resolution: 368x448 — path: /accessories/apple-watch-series-6-44mm-blue
+- Apple Watch Series 6 44mm, Gold — $359, was $429; Screen: 1.78' OLED; Resolution: 368x448 — path: /accessories/apple-watch-series-6-44mm-gold
+- Apple Watch Series 6 44mm, Red — $359, was $429; Screen: 1.78' OLED; Resolution: 368x448 — path: /accessories/apple-watch-series-6-44mm-red
+- Apple Watch Series 6 44mm, Silver — $359, was $429; Screen: 1.78' OLED; Resolution: 368x448 — path: /accessories/apple-watch-series-6-44mm-silver
+- Apple Watch Series 6 44mm, Space Gray — $359, was $429; Screen: 1.78' OLED; Resolution: 368x448 — path: /accessories/apple-watch-series-6-44mm-space-gray
