@@ -211,11 +211,7 @@ export const ProductsPage: React.FC<Props> = ({ product }) => {
           </div>
           <div className={styles.page__items}>
             {filteredProduct.slice(startElement, endElement).map(phone => (
-              <ModelItem
-                model={phone}
-                modelsTitle="Hot prices"
-                key={phone.id}
-              />
+              <ModelItem model={phone} key={phone.id} />
             ))}
           </div>
         </div>

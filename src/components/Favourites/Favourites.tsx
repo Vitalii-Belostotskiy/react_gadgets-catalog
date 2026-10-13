@@ -53,11 +53,7 @@ export const Favourites: React.FC<Props> = ({ models }) => {
             </div>
             <div className={styles.favourites__item}>
               {visibleFavourites.map(model => (
-                <ModelItem
-                  model={model}
-                  key={model.id}
-                  modelsTitle="Hot Price"
-                />
+                <ModelItem model={model} key={model.id} />
               ))}
             </div>
           </div>

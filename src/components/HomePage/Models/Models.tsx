@@ -27,11 +27,7 @@ export const Models: React.FC<Props> = ({
           ></button>
         </div>
       </div>
-      <Carousel
-        models={phones}
-        swiperIndex={swiperIndex}
-        modelsTitle={modelsTitle}
-      />
+      <Carousel models={phones} swiperIndex={swiperIndex} />
     </section>
   );
 };

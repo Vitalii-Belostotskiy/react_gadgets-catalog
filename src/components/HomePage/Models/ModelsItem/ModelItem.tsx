@@ -6,10 +6,9 @@ import { useAppContext } from '../../../../AppContext';
 
 interface Props {
   model: Products;
-  modelsTitle: string;
 }
 
-export const ModelItem: React.FC<Props> = ({ model, modelsTitle }) => {
+export const ModelItem: React.FC<Props> = ({ model }) => {
   const { favourites, cart, handleAddCart, handleAddFavourite } =
     useAppContext();
 
@@ -33,19 +32,12 @@ export const ModelItem: React.FC<Props> = ({ model, modelsTitle }) => {
             <p>{model.name}</p>
           </Link>
           <div className={styles.item__price}>
-            {modelsTitle === 'Hot prices' ? (
-              <>
-                <h3
-                  className={styles['item__price-num']}
-                >{`$${model.price}`}</h3>
-                <h3 className={styles['item__price--discount']}>
-                  {`$${model.fullPrice}`}
-                </h3>
-              </>
-            ) : (
-              <h3
-                className={styles['item__price-num']}
-              >{`$${model.fullPrice}`}</h3>
+            {/* current price everywhere, as on the product page and in cart */}
+            <h3 className={styles['item__price-num']}>{`$${model.price}`}</h3>
+            {model.fullPrice > model.price && (
+              <h3 className={styles['item__price--discount']}>
+                {`$${model.fullPrice}`}
+              </h3>
             )}
           </div>
           <div className={styles.item__info}>

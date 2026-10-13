@@ -10,14 +10,9 @@ import { ModelItem } from '../ModelsItem';
 interface Props {
   models: Products[];
   swiperIndex: number;
-  modelsTitle: string;
 }
 
-export const Carousel: React.FC<Props> = ({
-  models,
-  swiperIndex,
-  modelsTitle,
-}) => {
+export const Carousel: React.FC<Props> = ({ models, swiperIndex }) => {
   return (
     <div className="models__wrapper">
       <div className="models__carousel">
@@ -41,7 +36,7 @@ export const Carousel: React.FC<Props> = ({
         >
           {models.map(model => (
             <SwiperSlide key={model.id}>
-              <ModelItem model={model} modelsTitle={modelsTitle} />
+              <ModelItem model={model} />
             </SwiperSlide>
           ))}
         </Swiper>

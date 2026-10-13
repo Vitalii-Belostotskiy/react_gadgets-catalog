@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { HeaderPageListsSection } from './types/PageForShow';
 import { Products } from './types/Products';
 import { getProduct } from './api';
@@ -36,6 +37,32 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
   const [phones, setPhones] = useState<Products[]>([]);
   const [tablets, setTablets] = useState<Products[]>([]);
   const [accessories, setAccessories] = useState<Products[]>([]);
+  const { pathname } = useLocation();
+
+  // derive current page from the URL, so any navigation (links, back button,
+  // voice agent changing location.hash) keeps it in sync
+  useEffect(() => {
+    switch (pathname.split('/')[1]) {
+      case 'phones':
+        setCurrentPage(HeaderPageListsSection.Phones);
+        break;
+      case 'tablets':
+        setCurrentPage(HeaderPageListsSection.Tablets);
+        break;
+      case 'accessories':
+        setCurrentPage(HeaderPageListsSection.Accessories);
+        break;
+      case 'favourites':
+        setCurrentPage(HeaderPageListsSection.Favorites);
+        break;
+      case 'cart':
+        setCurrentPage(HeaderPageListsSection.Cart);
+        break;
+      default:
+        setCurrentPage(HeaderPageListsSection.Home);
+        break;
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -138,16 +165,31 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     const savedFavourites = localStorage.getItem('favourites');
     const savedItemCounts = localStorage.getItem('itemCounts');
 
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
+    // saved items keep the price they had when added, so take the current
+    // product data from the catalog
+    const withCurrentData = (saved: string) =>
+      (JSON.parse(saved) as Products[]).map(
+        item =>
+          productsFromServer.find(product => product.id === item.id) || item,
+      );
+
+    const savedCartItems = savedCart ? withCurrentData(savedCart) : [];
+    const counts: Record<number, number> = savedItemCounts
+      ? JSON.parse(savedItemCounts)
+      : {};
+
+    // items added from the product page used to be saved without a count
+    savedCartItems.forEach(item => {
+      if (!counts[item.id]) {
+        counts[item.id] = 1;
+      }
+    });
+
+    setCart(savedCartItems);
+    setItemCounts(counts);
 
     if (savedFavourites) {
-      setFavourites(JSON.parse(savedFavourites));
-    }
-
-    if (savedItemCounts) {
-      setItemCounts(JSON.parse(savedItemCounts));
+      setFavourites(withCurrentData(savedFavourites));
     }
   }, []);
 

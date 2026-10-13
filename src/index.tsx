@@ -4,6 +4,9 @@ import './App.scss';
 import './utils/resetStyles.css';
 import { AppProvider } from './AppContext';
 import { Main } from './Main';
+import { initHancAgent } from './hancAgent';
+
+initHancAgent();
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>

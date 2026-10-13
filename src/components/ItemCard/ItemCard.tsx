@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 import styles from './ItemCard.module.scss';
 import productsFromServer from '../../api/products.json';
@@ -14,16 +14,18 @@ import {
 } from '../../api';
 import { Loader } from '../Loader';
 import { Carousel } from '../HomePage/Models/Carousel';
+import { findClosestId } from '../../utils/findClosestId';
 
 interface Props {
   swiperIndex: number;
 }
 
 export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
-  const { currentPage, favourites, setFavourites, cart, setCart } =
+  const { currentPage, favourites, cart, handleAddCart, handleAddFavourite } =
     useAppContext();
   const { productId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const category = location.pathname.split('/')[1];
   const startWith = location.pathname.split('/').pop();
   const [model, setModel] = useState<Phone | Accessories | null>(null);
@@ -71,19 +73,14 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
     return `/${firstPart[1]}/${seconPart}`;
   };
 
+  // same toggles as product cards, so the cart item count is kept too
   const handleAddToCart = () => {
     const itemToAdd = productsFromServer.find(
       item => item.itemId === model?.id,
     );
 
     if (itemToAdd) {
-      if (cart.some(item => item.id === itemToAdd.id)) {
-        // object already exist in cart, so delete the item
-        setCart(prevCart => prevCart.filter(item => item.id !== itemToAdd.id));
-      } else {
-        // object doesn't exist in cart, so add item
-        setCart(prevCart => [...prevCart, itemToAdd]);
-      }
+      handleAddCart(itemToAdd);
     }
   };
 
@@ -93,15 +90,7 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
     );
 
     if (itemToAdd) {
-      if (favourites.some(item => item.id === itemToAdd.id)) {
-        // object already exist in favourites, so delete the item
-        setFavourites(prevFavourites =>
-          prevFavourites.filter(item => item.id !== itemToAdd.id),
-        );
-      } else {
-        // object doesn't exist in favourites, so add item
-        setFavourites(prevFavourites => [...prevFavourites, itemToAdd]);
-      }
+      handleAddFavourite(itemToAdd);
     }
   };
 
@@ -109,31 +98,37 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
     setLoading(true);
 
     const fetchData = async () => {
-      let fetchedModel: Phone | Accessories | null = null;
+      let models: (Phone | Accessories)[] = [];
 
       switch (category) {
         case 'phones':
-          const detailedPhones = await getDetailedPhones();
-
-          fetchedModel =
-            detailedPhones.find(phone => phone.id === productId) || null;
+          models = await getDetailedPhones();
           break;
         case 'tablets':
-          const detailedTablets = await getDetailedTablets();
-
-          fetchedModel =
-            detailedTablets.find(tablets => tablets.id === productId) || null;
+          models = await getDetailedTablets();
           break;
         case 'accessories':
-          const detailedAccessories = await getDetailedAccessories();
-
-          fetchedModel =
-            detailedAccessories.find(
-              accessories => accessories.id === productId,
-            ) || null;
+          models = await getDetailedAccessories();
           break;
         default:
-          fetchedModel = null;
+          models = [];
+      }
+
+      const fetchedModel = models.find(item => item.id === productId) || null;
+
+      // unknown id (e.g. guessed by the voice agent): open the closest
+      // product, or the category list if nothing is similar enough
+      if (!fetchedModel && productId && models.length) {
+        const closestId = findClosestId(
+          productId,
+          models.map(item => item.id),
+        );
+
+        navigate(closestId ? `/${category}/${closestId}` : `/${category}`, {
+          replace: true,
+        });
+
+        return;
       }
 
       setModel(fetchedModel);
@@ -141,7 +136,7 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
     };
 
     fetchData();
-  }, [category, productId]);
+  }, [category, productId, navigate]);
 
   if (loading) {
     return <Loader />;
@@ -399,11 +394,7 @@ export const ItemCard: React.FC<Props> = ({ swiperIndex }) => {
                   ></button>
                 </div>
               </div>
-              <Carousel
-                swiperIndex={swiperIndex}
-                modelsTitle="Hot prices"
-                models={relatedItems}
-              />
+              <Carousel swiperIndex={swiperIndex} models={relatedItems} />
             </div>
           </div>
         </section>
