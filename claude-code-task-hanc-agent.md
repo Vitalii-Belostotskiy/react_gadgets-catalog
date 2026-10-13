@@ -7,7 +7,7 @@
 1. Виджет и обработчик команд агента подключены один раз, на уровне приложения, не на странице товара.
    - Виджет — в `public/index.html` внутри `<body>`, перед `</body>`. Кроме виджета, в `index.html` никакого кода агента нет:
      ```html
-     <hanc-ai-floating-call agent-id="6acdd5039237ec81fad90df0" theme="tangerine" voice-service-url="https://voice.hanc.ai"></hanc-ai-floating-call>
+     <hanc-ai-floating-call agent-id="6acdd5039237ec81fad90df0" theme="purple" voice-service-url="https://voice.hanc.ai"></hanc-ai-floating-call>
      <script src="https://unpkg.com/hanc-webrtc-widgets" async type="text/javascript"></script>
      ```
    - Обработчик события `agent-command` — в модуле `src/hancAgent.ts`, функция `initHancAgent()` вызывается один раз при старте в `src/index.tsx`. Подписка на `document`, не пересоздаётся при смене страницы, не дублируется при hot reload (прежний обработчик снимается).
