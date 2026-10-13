@@ -25,6 +25,12 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Gizmo Galaxy</title>
+    <style>
+      /* lift the HANC voice widget (default bottom: 32px) off the page buttons */
+      hanc-ai-floating-call::part(container) {
+        bottom: 104px;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -41,11 +47,13 @@
     -->
 
     <!-- Голосовой продавец HANC. Команды агента обрабатывает src/hancAgent.ts -->
+
     <hanc-ai-floating-call
       agent-id="6acdd5039237ec81fad90df0"
       theme="purple"
       voice-service-url="https://voice.hanc.ai"
     ></hanc-ai-floating-call>
+
     <script
       src="https://unpkg.com/hanc-webrtc-widgets"
       async
