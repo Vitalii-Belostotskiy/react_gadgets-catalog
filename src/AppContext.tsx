@@ -1,5 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { flushSync } from 'react-dom';
 import { useLocation } from 'react-router-dom';
+import { registerShopActions } from './hancAgent';
 import { HeaderPageListsSection } from './types/PageForShow';
 import { Products } from './types/Products';
 import { getProduct } from './api';
@@ -63,6 +71,116 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
         break;
     }
   }, [pathname]);
+
+  // the voice agent changes the cart and favourites through these functions
+  // (see hancAgent.ts); refs give them the current state, the functional
+  // updates make a repeated command harmless
+  const cartRef = useRef(cart);
+  const favouritesRef = useRef(favourites);
+
+  cartRef.current = cart;
+  favouritesRef.current = favourites;
+
+  useEffect(() => {
+    const lists = {
+      cart: { ref: cartRef, set: setCart },
+      favourites: { ref: favouritesRef, set: setFavourites },
+    };
+
+    registerShopActions({
+      add: (list, itemId) => {
+        const product = productsFromServer.find(item => item.itemId === itemId);
+
+        if (!product) {
+          return 'missing';
+        }
+
+        const has = (items: Products[]) =>
+          items.some(item => item.id === product.id);
+
+        if (has(lists[list].ref.current)) {
+          return 'already';
+        }
+
+        // commit now: the agent may ask for the cart right after the change
+        flushSync(() => {
+          lists[list].set(prev => (has(prev) ? prev : [...prev, product]));
+
+          if (list === 'cart') {
+            setItemCounts(prev =>
+              prev[product.id] ? prev : { ...prev, [product.id]: 1 },
+            );
+          }
+        });
+
+        return 'added';
+      },
+      remove: (list, itemId) => {
+        const product = productsFromServer.find(item => item.itemId === itemId);
+
+        if (
+          !product ||
+          !lists[list].ref.current.some(item => item.id === product.id)
+        ) {
+          return 'missing';
+        }
+
+        flushSync(() => {
+          lists[list].set(prev => prev.filter(item => item.id !== product.id));
+
+          if (list === 'cart') {
+            setItemCounts(prev => {
+              const newCounts = { ...prev };
+
+              delete newCounts[product.id];
+
+              return newCounts;
+            });
+          }
+        });
+
+        return 'removed';
+      },
+      setQuantity: (itemId, quantity) => {
+        const product = productsFromServer.find(item => item.itemId === itemId);
+
+        if (!product) {
+          return 'missing';
+        }
+
+        const inCart = cartRef.current.some(item => item.id === product.id);
+
+        if (!quantity && !inCart) {
+          return 'missing';
+        }
+
+        // like handleIncrement: the cart holds the product once per piece
+        flushSync(() => {
+          setCart(prev => [
+            ...prev.filter(item => item.id !== product.id),
+            ...Array(quantity).fill(product),
+          ]);
+          setItemCounts(prev => {
+            const newCounts = { ...prev, [product.id]: quantity };
+
+            if (!quantity) {
+              delete newCounts[product.id];
+            }
+
+            return newCounts;
+          });
+        });
+
+        if (!quantity) {
+          return 'removed';
+        }
+
+        return inCart ? 'updated' : 'added';
+      },
+    });
+
+    return () => registerShopActions(null);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

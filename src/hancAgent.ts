@@ -57,6 +57,8 @@ const formatColor = (color: string) =>
   colorNames[color.replace(/[\s-]/g, '')] ||
   color.replace(/(^|\s)\S/g, letter => letter.toUpperCase());
 
+const getCurrentPath = () => window.location.hash.replace(/^#/, '') || '/';
+
 const splitPath = (path: string) =>
   path.split('?')[0].split('/').filter(Boolean);
 
@@ -109,13 +111,37 @@ interface ResolvedPath {
   exact: boolean;
 }
 
+const toPageSegment = (segment: string) =>
+  Object.prototype.hasOwnProperty.call(pathAliases, segment)
+    ? pathAliases[segment]
+    : segment;
+
+// the existing product id for a possibly guessed one, or null
+const resolveProductId = (productId: string, models: Phone[]) => {
+  if (models.some(item => item.id === productId)) {
+    return productId;
+  }
+
+  const fullId = generationAliases.reduce(
+    (id, [pattern, replacement]) => id.replace(pattern, replacement),
+    productId,
+  );
+  const variants = findModelVariants(fullId, models);
+  const candidates = (variants || models).map(item => item.id);
+  const id = findClosestId(fullId, candidates);
+
+  if (!id && variants) {
+    return pickVariant(fullId, variants);
+  }
+
+  return id;
+};
+
 // returns the page to open for the agent's path, or null if neither
 // the product nor the page is recognised
 const resolvePath = (path: string): ResolvedPath | null => {
   const [segment = '', productId, ...rest] = splitPath(path.toLowerCase());
-  const category = Object.prototype.hasOwnProperty.call(pathAliases, segment)
-    ? pathAliases[segment]
-    : segment;
+  const category = toPageSegment(segment);
   const cleanPath = category ? `/${category}` : '/';
 
   if (!pagePaths.includes(cleanPath)) {
@@ -128,19 +154,7 @@ const resolvePath = (path: string): ResolvedPath | null => {
     return { path: cleanPath, exact: !productId };
   }
 
-  const fullId = generationAliases.reduce(
-    (id, [pattern, replacement]) => id.replace(pattern, replacement),
-    productId,
-  );
-  const variants = findModelVariants(fullId, models);
-  const candidates = (variants || models).map(item => item.id);
-  let id = models.some(item => item.id === productId)
-    ? productId
-    : findClosestId(fullId, candidates);
-
-  if (!id && variants) {
-    id = pickVariant(fullId, variants);
-  }
+  const id = resolveProductId(productId, models);
 
   if (!id) {
     return { path: cleanPath, exact: false };
@@ -152,7 +166,104 @@ const resolvePath = (path: string): ResolvedPath | null => {
   };
 };
 
-const getCurrentPath = () => window.location.hash.replace(/^#/, '') || '/';
+// HANC has no commands for changing the cart, so the agent "opens" action
+// paths: /cart/add/<id>, /cart/remove/<id>, /cart/set/<id>?qty=<n>,
+// /favourites/add/<id>, /favourites/remove/<id>. AppProvider registers
+// the functions doing it.
+type ShopListName = 'cart' | 'favourites';
+type ShopActionResult = 'added' | 'already' | 'removed' | 'missing' | 'updated';
+
+export interface ShopActions {
+  add: (list: ShopListName, itemId: string) => ShopActionResult;
+  remove: (list: ShopListName, itemId: string) => ShopActionResult;
+  // quantity 0 removes the product from the cart
+  setQuantity: (itemId: string, quantity: number) => ShopActionResult;
+}
+
+let shopActions: ShopActions | null = null;
+
+export const registerShopActions = (actions: ShopActions | null) => {
+  shopActions = actions;
+};
+
+const actionAliases: Record<string, 'add' | 'remove' | 'set'> = {
+  add: 'add',
+  remove: 'remove',
+  delete: 'remove',
+  set: 'set',
+  quantity: 'set',
+  qty: 'set',
+  update: 'set',
+};
+
+const maxQuantity = 99;
+
+// "?qty=3" (also quantity, count) or a number after the id: /cart/set/<id>/3
+const getQuantity = (path: string, parts: string[]) => {
+  const query = path.split('?')[1] || '';
+  const fromQuery = query.match(/(?:^|&)(?:qty|quantity|count)=(\d+)/);
+  const fromPath = parts.find(part => /^\d+$/.test(part));
+  const value = fromQuery ? fromQuery[1] : fromPath;
+
+  return value === undefined ? null : Math.min(Number(value), maxQuantity);
+};
+
+const allModels = Object.values(catalog).flat();
+
+// handles an action path, or returns null if the path is not an action
+const runShopAction = (path: string) => {
+  const [segment = '', action = '', ...rest] = splitPath(path.toLowerCase());
+  const list = toPageSegment(segment);
+  const verb = Object.prototype.hasOwnProperty.call(actionAliases, action)
+    ? actionAliases[action]
+    : null;
+
+  // favourites have no quantity
+  if (
+    (list !== 'cart' && list !== 'favourites') ||
+    !verb ||
+    (verb === 'set' && list !== 'cart')
+  ) {
+    return null;
+  }
+
+  const quantity = list === 'cart' ? getQuantity(path, rest) : null;
+  // the agent may add the category: /cart/add/phones/<id>
+  const productId = rest
+    .filter(part => !catalog[toPageSegment(part)] && !/^\d+$/.test(part))
+    .pop();
+  const id = productId ? resolveProductId(productId, allModels) : null;
+  const model = allModels.find(item => item.id === id);
+  let result: ShopActionResult | 'not_found' | 'no_quantity' = 'not_found';
+
+  if (model && shopActions) {
+    // "add 3 watches" sets the quantity too
+    if (verb === 'set' || (verb === 'add' && quantity !== null)) {
+      result =
+        quantity === null
+          ? 'no_quantity'
+          : shopActions.setQuantity(model.id, quantity);
+    } else {
+      result = shopActions[verb](list, model.id);
+    }
+  }
+
+  const product = model && {
+    id: model.id,
+    name: model.name,
+    price: model.priceDiscount,
+  };
+
+  return {
+    // the page does not change, so this is where the visitor already is
+    opened: getCurrentPath(),
+    action: `${list}_${verb}`,
+    result,
+    // false when a similar product was used instead of the asked one
+    exact: Boolean(model) && model?.id === productId,
+    product: product || null,
+  };
+};
 
 const getProduct = (path: string) => {
   const [category, productId, ...rest] = splitPath(path);
@@ -251,6 +362,28 @@ const handleAgentCommand = (event: Event) => {
       // always accept a site path: a navigate left unhandled makes the agent
       // stop opening pages until the end of the call
       event.preventDefault();
+
+      const shopAction = runShopAction(requested);
+
+      if (shopAction) {
+        const favourites = getFavourites();
+        const favouritesState = {
+          favourites,
+          favouritesTotal: favourites.reduce(
+            (sum, item) => sum + item.price,
+            0,
+          ),
+        };
+        const listState = shopAction.action.startsWith('cart')
+          ? { cart: getCartState() }
+          : favouritesState;
+
+        // the visitor stays on the current page, the header counters update;
+        // the changed list goes back with the result, so the agent does not
+        // rely on an older cart state
+        respond?.({ ...shopAction, ...listState });
+        break;
+      }
 
       const resolved = resolvePath(requested);
 

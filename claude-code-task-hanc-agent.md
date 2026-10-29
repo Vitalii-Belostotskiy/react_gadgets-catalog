@@ -16,7 +16,10 @@
    - `type === 'navigate'`: `payload.path` начинается с `/`. Перейти без перезагрузки страницы, иначе звонок оборвётся: `window.location.hash = '#' + path`. Вызвать `event.preventDefault()` (это сигнал агенту «принято»). Путь вида `/phones/apple-iphone-14-pro-128gb-spaceblack`, `/tablets/...`, `/accessories/...`, а также `/`, `/phones`, `/tablets`, `/accessories`, `/favourites`, `/cart`.
      - Синонимы страниц приводятся к настоящим адресам: `/favorites`, `/wishlist` → `/favourites`; `/home` → `/`; `/basket` → `/cart`; `/watches` → `/accessories`. Регистр не важен.
      - Если агент придумал неточный адрес товара (например `/tablets/apple-ipad-air-64gb-rosegold`), открыть ближайший существующий товар (`/tablets/apple-ipad-air-4th-gen-64gb-rose-gold`, функция `src/utils/findClosestId.ts`). Части адреса с цифрами (модель, память, размер) должны совпасть точно, иначе товар не подбирается.
-     - Пути, которых нет в маршрутах приложения, и товары без похожего не открывать, `preventDefault()` не вызывать.
+     - Сокращения поколений разворачиваются: `air-4` → `air-4th-gen`, `mini-6` → `mini-6th-gen`, `mini-5` → `mini-5th-gen`, `pro-11` → `pro-11-2021`, `10-2` → `10-2-2020`. Если модель узнана, а такой памяти или цвета нет, открыть вариант того же цвета, иначе самый дешёвый.
+     - `preventDefault()` вызывать на **любой** путь, начинающийся с `/`: без него агент до конца звонка перестаёт открывать страницы. Неизвестная модель → страница раздела; неизвестный раздел → страница не меняется. Внешние ссылки (`https://…`, `//…`) и пустой путь игнорировать без `preventDefault()`.
+     - Ответ `respond({ opened, exact })`, `exact: false`, если открыт похожий товар или раздел.
+     - Адреса-действия (своих команд для корзины у HANC нет): `/cart/add/<id>`, `/cart/remove/<id>`, `/cart/set/<id>?qty=<n>` (количество в корзине; также `quantity=`, `count=` или `/cart/set/<id>/<n>`, `add` с количеством работает как `set`, `qty=0` удаляет товар, `set` без количества → `no_quantity`; результат `updated` или `added`), `/favourites/add/<id>`, `/favourites/remove/<id>` (синонимы разделов и `delete` вместо `remove` тоже работают, категория в пути допускается: `/cart/add/phones/<id>`). Товар ищется по всему каталогу так же, как выше. Действие повторяемое: добавление уже добавленного ничего не меняет. Страница после действия не меняется (посетитель видит изменение по счётчику в шапке), ответ `respond({ opened, action, result, exact, product })`, где `result` — `added`, `already`, `removed`, `updated`, `missing` (товара нет в списке) или `not_found` (товар не найден). Корзину и избранное меняют функции, которые `AppProvider` регистрирует через `registerShopActions`, а не прямая запись в localStorage — иначе React не узнает об изменении.
    - `type === 'page_context'`: `event.preventDefault()` и
      `respond({ path, title, product, favourites, favouritesTotal, cart })`, где
      - `path` = текущий путь из hash без `#` (например `/phones/apple-iphone-14-pro-128gb-spaceblack`);
@@ -48,7 +51,8 @@
 6. Инструкция агента в HANC должна содержать:
    - открывать товар только по точному `path` из базы знаний, адреса не придумывать;
    - чтобы узнать, что в избранном, запрашивать контекст страницы (поле `favourites`);
-   - никогда не складывать цены самому: сумма избранного — `favouritesTotal`, сумма корзины — `cart.total`, число товаров в корзине — `cart.count`.
+   - никогда не складывать цены самому: сумма избранного — `favouritesTotal`, сумма корзины — `cart.total`, число товаров в корзине — `cart.count`;
+   - менять корзину и избранное через адреса-действия; перед добавлением в корзину назвать товар и цену и дождаться согласия посетителя.
 
 ## Как проверить
 
@@ -66,6 +70,7 @@
 - Проверить, что при смене страниц обработчик не регистрируется повторно (один вызов `respond` на одно событие).
 - `navigate` на `/favorites` открывает `/favourites`, на `/tablets/apple-ipad-air-64gb-rosegold` — `/tablets/apple-ipad-air-4th-gen-64gb-rose-gold`, на `/laptops` — не открывается (`defaultPrevented === false`).
 - Добавить несколько товаров в избранное и корзину (в том числе со страницы товара и с количеством больше 1): `favouritesTotal`, `cart.total` и `cart.count` в `page_context` совпадают с суммами на страницах избранного и корзины; в корзине нет `$NaN`.
+- `navigate` на `/cart/add/apple-ipad-air-4-64gb-sky-blue` → `result: 'added'`, в корзине `apple-ipad-air-4th-gen-64gb-sky-blue` с количеством 1, страница не сменилась, счётчик в шапке обновился; повтор → `already`, количество по-прежнему 1; `/cart/remove/…` → `removed`, повтор → `missing`; `/cart/add/apple-iphone-15` → `not_found`, корзина не меняется. То же для `/favourites/add|remove/…`.
 
 ## Деплой
 

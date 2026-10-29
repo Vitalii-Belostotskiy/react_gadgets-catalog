@@ -46,6 +46,47 @@ const lines = [
     'request the page context; for the cart, request the cart state.',
 ];
 
+// action paths handled by src/hancAgent.ts (HANC has no cart commands)
+lines.push(
+  '',
+  '## Cart and favourites actions',
+  '',
+  'To change the cart or favourites, navigate to one of these paths, ' +
+    'where <product-id> is the last part of the product path from this list:',
+  '',
+  '- add to cart: /cart/add/<product-id>',
+  '- remove from cart: /cart/remove/<product-id>',
+  '- set how many pieces of a product are in the cart: ' +
+    '/cart/set/<product-id>?qty=<number> (qty=0 removes it; ' +
+    'adds the product if it is not in the cart yet)',
+  '- add to favourites: /favourites/add/<product-id>',
+  '- remove from favourites: /favourites/remove/<product-id>',
+  '',
+  'Example: to add Apple iPhone 14 Pro 256GB Gold to the cart, navigate to ' +
+    '/cart/add/apple-iphone-14-pro-256gb-gold; to add it to favourites, ' +
+    'navigate to /favourites/add/apple-iphone-14-pro-256gb-gold.',
+  'The cart and favourites are two different lists. When the visitor asks ' +
+    'for favourites (избранное, обране, wishlist, the heart button), use only ' +
+    'a /favourites/... path, never a /cart/... path, and the other way round. ' +
+    'Check the "action" field of the result: favourites_add means the product ' +
+    'went to favourites, cart_add means it went to the cart.',
+  'Before adding to the cart, name the exact product and price and ask ' +
+    'the visitor to confirm. Adding a product already in the cart does not ' +
+    'add a second one (the result is "already"): to change the quantity, use ' +
+    '/cart/set with the total number the visitor wants, e.g. "make it three" ' +
+    'means qty=3. Say the new quantity only after the result is "updated" or ' +
+    '"added", taking it from "quantity" in the returned cart. ' +
+    'The page does not change after the action.',
+  'The result of an action already contains the updated list: "cart" ' +
+    '(items, total, count) after a cart action, "favourites" and ' +
+    '"favouritesTotal" after a favourites action. Answer about the change ' +
+    'from it, there is no need to request anything else.',
+  'The cart and favourites change during the call. Never answer what is in ' +
+    'them from memory: every time the visitor asks about them, request the ' +
+    'cart state (or the page context for favourites) again and answer only ' +
+    'from the new result.',
+);
+
 // same rule as the "Brand new models" block on the home page (HomePage.tsx)
 const newModels = [
   ...new Set(
