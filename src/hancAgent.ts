@@ -265,6 +265,11 @@ const runShopAction = (path: string) => {
   };
 };
 
+// these phones show the iPhone 11 Pro texts on their pages (triple camera,
+// 4K at 60 fps), so the agent does not get them (as in agent-catalog.md)
+const borrowedText = 'iPhone 11 Pro lets you';
+const ownersOfText = ['apple-iphone-11-pro', 'apple-iphone-11-pro-max'];
+
 const getProduct = (path: string) => {
   const [category, productId, ...rest] = splitPath(path);
   const model =
@@ -278,6 +283,17 @@ const getProduct = (path: string) => {
 
   // build the name from capacity and color, so it always matches the page
   const modelName = model.name.split(model.capacity)[0].trim();
+
+  // the feature texts of the page: the knowledge base search does not find
+  // them for "what else can it do", the page context always has them
+  const hasBorrowedText =
+    !ownersOfText.includes(model.namespaceId) &&
+    model.description.some(d => d.text.join(' ').includes(borrowedText));
+  const pageFeatures = model.description.map(d => ({
+    title: d.title,
+    text: d.text.join(' '),
+  }));
+  const features = hasBorrowedText ? [] : pageFeatures;
 
   return {
     id: model.id,
@@ -296,6 +312,7 @@ const getProduct = (path: string) => {
     zoom: model.zoom,
     capacityAvailable: model.capacityAvailable,
     colorsAvailable: model.colorsAvailable.map(formatColor),
+    features,
   };
 };
 

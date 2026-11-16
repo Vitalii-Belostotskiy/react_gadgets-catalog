@@ -134,9 +134,11 @@ Object.entries(titles).forEach(([category, title]) => {
         Camera: item.camera,
         Zoom: item.zoom,
         Connectivity: item.cell.join(', '),
-        'Key features': hasBorrowedText(item)
-          ? ''
-          : item.description.map(d => d.title).join('; '),
+        // the Russian words help the knowledge base search find these lines
+        'Key features (функции, особенности, дополнительные характеристики)':
+          hasBorrowedText(item)
+            ? ''
+            : item.description.map(d => d.title).join('; '),
       });
       // specs that differ between variants go to each variant's line
       const varying = Object.keys(specsOf(first)).filter(key =>
@@ -194,7 +196,7 @@ Object.entries(titles).forEach(([category, title]) => {
 
       if (featureDetails) {
         lines.push(
-          `${modelName(first)} feature details (from the product page). ${featureDetails}`,
+          `${modelName(first)} feature details (from the product page, подробное описание функций). ${featureDetails}`,
           '',
         );
       }
