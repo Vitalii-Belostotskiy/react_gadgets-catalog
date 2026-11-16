@@ -30,6 +30,14 @@ const formatColor = color =>
   colorNames[color.replace(/[\s-]/g, '')] ||
   color.replace(/(^|\s)\S/g, letter => letter.toUpperCase());
 
+// these phones show the iPhone 11 Pro texts on their pages (triple camera,
+// 4K at 60 fps), so the agent gets neither those texts nor their titles
+const borrowedText = 'iPhone 11 Pro lets you';
+const ownersOfText = ['apple-iphone-11-pro', 'apple-iphone-11-pro-max'];
+const hasBorrowedText = item =>
+  !ownersOfText.includes(item.namespaceId) &&
+  item.description.some(d => d.text.join(' ').includes(borrowedText));
+
 const modelName = item => item.name.split(item.capacity)[0].trim();
 
 // "1TB" -> 1024, "512GB" -> 512, "44mm" -> 44
@@ -71,10 +79,11 @@ lines.push(
     'Check the "action" field of the result: favourites_add means the product ' +
     'went to favourites, cart_add means it went to the cart.',
   'Before adding to the cart, name the exact product and price and ask ' +
-    'the visitor to confirm. Adding a product already in the cart does not ' +
-    'add a second one (the result is "already"): to change the quantity, use ' +
-    '/cart/set with the total number the visitor wants, e.g. "make it three" ' +
-    'means qty=3. Say the new quantity only after the result is "updated" or ' +
+    'the visitor to confirm. Adding a product that is already in the cart ' +
+    'adds one more piece (the result is "updated"); the same command repeated ' +
+    'within a few seconds is taken as a retry and changes nothing (the result ' +
+    'is "already"). To set an exact number of pieces, use /cart/set with the ' +
+    'total number the visitor wants, e.g. "make it three" means qty=3. Say the new quantity only after the result is "updated" or ' +
     '"added", taking it from "quantity" in the returned cart. ' +
     'The page does not change after the action.',
   'The result of an action already contains the updated list: "cart" ' +
@@ -125,7 +134,9 @@ Object.entries(titles).forEach(([category, title]) => {
         Camera: item.camera,
         Zoom: item.zoom,
         Connectivity: item.cell.join(', '),
-        'Key features': item.description.map(d => d.title).join('; '),
+        'Key features': hasBorrowedText(item)
+          ? ''
+          : item.description.map(d => d.title).join('; '),
       });
       // specs that differ between variants go to each variant's line
       const varying = Object.keys(specsOf(first)).filter(key =>
@@ -150,6 +161,27 @@ Object.entries(titles).forEach(([category, title]) => {
         `. Colors: ${colors.join(', ')}. ` +
         `Price: from $${Math.min(...prices)} to $${Math.max(...prices)}.`;
 
+      // the texts under each feature on the product page, so the agent can
+      // tell more about a feature without making it up
+      const details = new Map();
+
+      items
+        .filter(item => !hasBorrowedText(item))
+        .forEach(item =>
+          item.description.forEach(d => {
+            const texts = details.get(d.title) || [];
+            const text = d.text.join(' ').trim();
+
+            if (!texts.includes(text)) {
+              details.set(d.title, [...texts, text]);
+            }
+          }),
+        );
+
+      const featureDetails = [...details]
+        .map(([title, texts]) => `${title.replace(/\.$/, '')}: ${texts.join(' ')}`)
+        .join(' ');
+
       lines.push(
         '',
         `### ${modelName(first)}`,
@@ -159,6 +191,13 @@ Object.entries(titles).forEach(([category, title]) => {
         `${modelName(first)} specs. ${specs.join('. ')}.`,
         '',
       );
+
+      if (featureDetails) {
+        lines.push(
+          `${modelName(first)} feature details (from the product page). ${featureDetails}`,
+          '',
+        );
+      }
 
       items
         .sort(
