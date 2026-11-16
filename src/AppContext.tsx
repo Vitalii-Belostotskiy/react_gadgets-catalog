@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { flushSync } from 'react-dom';
 import { useLocation } from 'react-router-dom';
-import { registerShopActions } from './hancAgent';
+import { registerShopActions, ShopActions } from './hancAgent';
 import { HeaderPageListsSection } from './types/PageForShow';
 import { Products } from './types/Products';
 import { getProduct } from './api';
@@ -77,9 +77,14 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
   // updates make a repeated command harmless
   const cartRef = useRef(cart);
   const favouritesRef = useRef(favourites);
+  const itemCountsRef = useRef(itemCounts);
+  // the last product added to the cart, to tell a retried command from
+  // "add one more"
+  const lastCartAddRef = useRef({ id: 0, time: 0 });
 
   cartRef.current = cart;
   favouritesRef.current = favourites;
+  itemCountsRef.current = itemCounts;
 
   useEffect(() => {
     const lists = {
@@ -87,7 +92,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
       favourites: { ref: favouritesRef, set: setFavourites },
     };
 
-    registerShopActions({
+    const actions: ShopActions = {
       add: (list, itemId) => {
         const product = productsFromServer.find(item => item.itemId === itemId);
 
@@ -98,8 +103,27 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
         const has = (items: Products[]) =>
           items.some(item => item.id === product.id);
 
+        // the same product again within a few seconds is a retried command
+        const now = Date.now();
+        const isRetry =
+          list === 'cart' &&
+          lastCartAddRef.current.id === product.id &&
+          now - lastCartAddRef.current.time < 3000;
+
+        if (list === 'cart') {
+          lastCartAddRef.current = { id: product.id, time: now };
+        }
+
         if (has(lists[list].ref.current)) {
-          return 'already';
+          // "add one more": the cart counts pieces, so a repeated add raises
+          // the quantity by one; favourites hold a product only once
+          if (list !== 'cart' || isRetry) {
+            return 'already';
+          }
+
+          const pieces = itemCountsRef.current[product.id] || 1;
+
+          return actions.setQuantity(itemId, Math.min(pieces + 1, 99));
         }
 
         // commit now: the agent may ask for the cart right after the change
@@ -177,7 +201,9 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
 
         return inCart ? 'updated' : 'added';
       },
-    });
+    };
+
+    registerShopActions(actions);
 
     return () => registerShopActions(null);
   }, []);
